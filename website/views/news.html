@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest News</title>
+    <style>
+         body { font-family: -apple-system, sans-serif; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .opportunity { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .opportunity h2 a { text-decoration: none; color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Latest Opportunities</h1>
+        <div id="opportunities-list"></div>
+        <a href="/">Back to Subscribe</a>
+    </div>
+    <script>
+        async function loadNews() {
+            const listEl = document.getElementById('opportunities-list');
+            const response = await fetch('/api/opportunities');
+            const opportunities = await response.json();
+
+            if (opportunities.length === 0) {
+                listEl.innerHTML = '<p>No news available right now. Check back later!</p>';
+                return;
+            }
+
+            let html = '';
+            opportunities.forEach(op => {
+                html += `
+                    <div class="opportunity">
+                        <h2><a href="${op.link}" target="_blank">${op.title}</a></h2>
+                        <p>${op.summary}</p>
+                        <small>Source: ${op.source}</small>
+                    </div>
+                `;
+            });
+            listEl.innerHTML = html;
+        }
+        loadNews();
+    </script>
+</body>
+</html>
