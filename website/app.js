@@ -13,16 +13,16 @@ app.listen(3000);
 // ROUTES
 // render views
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { title: 'Home' });
 });
 
 app.get('/news', (req, res) => {
-    res.render('news');
+    res.render('news', { title: 'News' });
 });
 
 // redirects
 
 // 404 page
 app.use((req, res) => {
-    res.status(404).render('404');
+    res.status(404).render('404', { title: '404' });
 });
