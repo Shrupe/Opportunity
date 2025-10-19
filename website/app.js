@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const apiRoutes = require('./routes/api');
+
 // express app
 const app = express();
 
@@ -25,8 +27,10 @@ app.use(morgan('dev'));
 
 // mongoose and mongo sandbox routes
 
+// api routes
+app.use('/api', apiRoutes);
 
-// route handlers
+// frontend routes
 app.get('/', (req, res) => {
     res.render('index', { title: 'Home' });
 });
